@@ -103,10 +103,6 @@ private:
         // Fighting
         typeChart["fighting"]["normal"] = 2.0f;
         typeChart["fighting"]["ice"] = 2.0f;
-        typeChart["fighting"]["poison"] = 0.5f;
-        typeChart["fighting"]["flying"] = 0.5f;
-        typeChart["fighting"]["psychic"] = 0.5f;
-        typeChart["fighting"]["bug"] = 0.5f;
     }
     
     bool isValidName(const char *name) {
