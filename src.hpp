@@ -55,7 +55,8 @@ private:
     
     void initializeTypeChart() {
         // Initialize all to 1.0 (neutral)
-        std::vector<std::string> types = {"normal", "fire", "water", "grass", "electric", "ice", "fighting"};
+        // Include all types mentioned in effectiveness chart
+        std::vector<std::string> types = {"normal", "fire", "water", "grass", "electric", "ice", "fighting", "ground", "flying", "poison", "psychic", "bug"};
         for (const auto& attacker : types) {
             for (const auto& defender : types) {
                 typeChart[attacker][defender] = 1.0f;
@@ -103,6 +104,13 @@ private:
         // Fighting
         typeChart["fighting"]["normal"] = 2.0f;
         typeChart["fighting"]["ice"] = 2.0f;
+        typeChart["fighting"]["poison"] = 0.5f;
+        typeChart["fighting"]["flying"] = 0.5f;
+        typeChart["fighting"]["psychic"] = 0.5f;
+        typeChart["fighting"]["bug"] = 0.5f;
+        
+        // Ground (mentioned in electric and water effectiveness)
+        typeChart["ground"]["electric"] = 0.0f;
     }
     
     bool isValidName(const char *name) {
@@ -312,6 +320,9 @@ public:
             if (typeChart.find(attackType) != typeChart.end() && 
                 typeChart.at(attackType).find(defenseType) != typeChart.at(attackType).end()) {
                 totalDamage *= typeChart.at(attackType).at(defenseType);
+            } else {
+                // If attack type or defense type not in chart, assume neutral (1.0x)
+                totalDamage *= 1.0f;
             }
         }
         
